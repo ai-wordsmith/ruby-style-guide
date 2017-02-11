@@ -1,29 +1,3 @@
-# Prelude
-
-> Role models are important. <br>
-> -- Officer Alex J. Murphy / RoboCop
-
-One thing has always bothered me as a Ruby developer&mdash;Python developers
-have a great programming style reference ([PEP-8][]) and we never got an
-official guide, documenting Ruby coding style and best practices. And I do
-believe that style matters. I also believe that a great hacker community, such
-as Ruby has, should be quite capable of producing this coveted document.
-
-This guide started its life as our internal company Ruby coding guidelines
-(written by yours truly). At some point I decided that the work I was doing
-might be interesting to members of the Ruby community in general and that the
-world had little need for another internal company guideline. But the world
-could certainly benefit from a community-driven and community-sanctioned set of
-practices, idioms and style prescriptions for Ruby programming.
-
-Since the inception of the guide I've received a lot of feedback from members of
-the exceptional Ruby community around the world. Thanks for all the suggestions
-and the support! Together we can make a resource beneficial to each and every
-Ruby developer out there.
-
-By the way, if you're into Rails you might want to check out the complementary
-[Ruby on Rails Style Guide][rails-style-guide].
-
 # The Ruby Style Guide
 
 This Ruby style guide recommends best practices so that real-world Ruby
@@ -31,17 +5,6 @@ programmers can write code that can be maintained by other real-world Ruby
 programmers. A style guide that reflects real-world usage gets used, while a
 style guide that holds to an ideal that has been rejected by the people it is
 supposed to help risks not getting used at all&mdash;no matter how good it is.
-
-The guide is separated into several sections of related rules. I've tried to add
-the rationale behind the rules (if it's omitted I've assumed it's pretty
-obvious).
-
-I didn't come up with all the rules out of nowhere&mdash;they are mostly
-based on my extensive career as a professional software engineer,
-feedback and suggestions from members of the Ruby community and
-various highly regarded Ruby programming resources, such as
-["Programming Ruby"][pickaxe] and
-["The Ruby Programming Language"][trpl].
 
 There are some areas in which there is no clear consensus in the Ruby community
 regarding a particular style (like string literal quoting, spacing inside hash
@@ -52,29 +15,6 @@ consistently.
 This style guide evolves over time as additional conventions are
 identified and past conventions are rendered obsolete by changes in
 Ruby itself.
-
-Many projects have their own coding style guidelines (often derived
-from this guide). In the event of any conflicts, such
-project-specific guides take precedence for that project.
-
-You can generate a PDF or an HTML copy of this guide using
-[Pandoc][].
-
-[RuboCop][] is a code analyzer, based on this
-style guide.
-
-Translations of the guide are available in the following languages:
-
-* [Chinese Simplified](https://github.com/JuanitoFatas/ruby-style-guide/blob/master/README-zhCN.md)
-* [Chinese Traditional](https://github.com/JuanitoFatas/ruby-style-guide/blob/master/README-zhTW.md)
-* [French](https://github.com/gauthier-delacroix/ruby-style-guide/blob/master/README-frFR.md)
-* [German](https://github.com/arbox/de-ruby-style-guide/blob/master/README-deDE.md)
-* [Japanese](https://github.com/fortissimo1997/ruby-style-guide/blob/japanese/README.ja.md)
-* [Korean](https://github.com/dalzony/ruby-style-guide/blob/master/README-koKR.md)
-* [Portuguese (pt-BR)](https://github.com/rubensmabueno/ruby-style-guide/blob/master/README-PT-BR.md)
-* [Russian](https://github.com/arbox/ruby-style-guide/blob/master/README-ruRU.md)
-* [Spanish](https://github.com/alemohamad/ruby-style-guide/blob/master/README-esLA.md)
-* [Vietnamese](https://github.com/CQBinh/ruby-style-guide/blob/master/README-viVN.md)
 
 ## Table of Contents
 
@@ -97,11 +37,6 @@ Translations of the guide are available in the following languages:
 * [Tools](#tools)
 
 ## Source Code Layout
-
-> Nearly everybody is convinced that every style but their own is
-> ugly and unreadable. Leave out the "but their own" and they're
-> probably right... <br>
-> -- Jerry Coffin (on indentation)
 
 * <a name="utf-8"></a>
   Use `UTF-8` as the source file encoding.
@@ -2541,14 +2476,10 @@ no parameters.
     end
 
     # protected and private methods are grouped near the end
-    protected
-
-    def some_protected_method
+    protected def some_protected_method
     end
 
-    private
-
-    def some_private_method
+    private def some_private_method
     end
   end
   ```
@@ -2909,14 +2840,15 @@ no parameters.
 <sup>[[link](#visibility)]</sup>
 
 * <a name="indent-public-private-protected"></a>
-  Indent the `public`, `protected`, and `private` methods as much as the method
-  definitions they apply to. Leave one blank line above the visibility modifier
-  and one blank line below in order to emphasize that it applies to all methods
-  below it.
+  Prepend `protected`, and `private` method definitions with the corresponding
+  keyword.  Do not put the identifier on a separate line.  This prevents
+  confusion when the length of a group of `private` methods extends beyond
+  what is visible on-screen at one time.
 <sup>[[link](#indent-public-private-protected)]</sup>
 
   ```Ruby
-  class SomeClass
+  # bad
+  class SomeBadClass
     def public_method
       # some code
     end
@@ -2928,6 +2860,21 @@ no parameters.
     end
 
     def another_private_method
+      # some code
+    end
+  end
+
+  # good
+  class SomeGoodClass
+    def public_method
+      # some code
+    end
+
+    private def private_method
+      # some code
+    end
+
+    private def another_private_method
       # some code
     end
   end
